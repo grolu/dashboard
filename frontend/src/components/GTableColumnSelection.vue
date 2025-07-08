@@ -15,15 +15,11 @@ SPDX-License-Identifier: Apache-2.0
     style="max-height: 80%"
   >
     <template #activator="{ props: menuProps }">
-      <v-tooltip location="top">
-        <template #activator="{ props: tooltipProps }">
-          <v-btn
-            v-bind="mergeProps(menuProps, tooltipProps)"
-            icon="mdi-dots-vertical"
-          />
-        </template>
-        Table Options
-      </v-tooltip>
+      <v-btn
+        v-bind="menuProps"
+        icon="mdi-dots-vertical"
+        v-tooltip:top="'Table Options'"
+      />
     </template>
     <v-card>
       <v-card-text class="pt-1">
@@ -31,22 +27,14 @@ SPDX-License-Identifier: Apache-2.0
           <span class="text-subtitle-2 text-medium-emphasis py-2">
             Column Selection
           </span>
-          <v-tooltip
-            activator="parent"
-            location="top"
-          >
-            <template #activator="{ props: activatorProps }">
-              <v-btn
-                v-bind="activatorProps"
-                icon="mdi-restore"
-                size="small"
-                variant="text"
-                flat
-                @click.stop="onReset"
-              />
-            </template>
-            Reset to Defaults
-          </v-tooltip>
+          <v-btn
+            icon="mdi-restore"
+            size="small"
+            variant="text"
+            flat
+            @click.stop="onReset"
+            v-tooltip:top="'Reset to Defaults'"
+          />
         </div>
         <v-checkbox-btn
           v-for="header in headers"
@@ -58,25 +46,18 @@ SPDX-License-Identifier: Apache-2.0
           @update:model-value="onSetSelectedHeader(header)"
         >
           <template #label>
-            <v-tooltip
+            <span
               v-if="header.customField"
-              location="top"
+              class="text-caption"
+              v-tooltip:top="'Custom Field'"
             >
-              <template #activator="{ props: activatorProps }">
-                <span
-                  v-bind="activatorProps"
-                  class="text-caption"
-                >
-                  {{ header.title }}
-                  <v-icon
-                    color="primary"
-                    icon="mdi-playlist-star"
-                    end
-                  />
-                </span>
-              </template>
-              Custom Field
-            </v-tooltip>
+              {{ header.title }}
+              <v-icon
+                color="primary"
+                icon="mdi-playlist-star"
+                end
+              />
+            </span>
             <span
               v-else
               class="text-caption"
@@ -88,7 +69,10 @@ SPDX-License-Identifier: Apache-2.0
       </v-card-text>
       <template v-if="filters && filters.length">
         <v-divider />
-        <v-card-text class="pt-1">
+        <v-card-text
+          class="pt-1"
+          v-tooltip.bottom="{ text: filterTooltip, disabled: !filterTooltip, maxWidth: 300 }"
+        >
           <div class="text-subtitle-2 text-medium-emphasis py-2">
             Table Filter
           </div>
@@ -110,14 +94,6 @@ SPDX-License-Identifier: Apache-2.0
               </span>
             </template>
           </v-checkbox-btn>
-          <v-tooltip
-            activator="parent"
-            location="bottom"
-            :disabled="!filterTooltip"
-            max-width="300"
-          >
-            {{ filterTooltip }}
-          </v-tooltip>
         </v-card-text>
       </template>
     </v-card>

@@ -281,24 +281,16 @@ SPDX-License-Identifier: Apache-2.0
                     Delete Project
                   </div>
                   <template #append>
-                    <v-tooltip
+                    <v-btn
                       v-if="canDeleteProject"
-                      location="top"
-                    >
-                      <template #activator="{ props }">
-                        <div v-bind="props">
-                          <v-btn
-                            color="action-button"
-                            :disabled="isDeleteButtonDisabled"
-                            icon="mdi-delete"
-                            variant="text"
-                            size="small"
-                            @click.stop="showDialog"
-                          />
-                        </div>
-                      </template>
-                      <span v-text="isDeleteButtonDisabled ? 'You can only delete projects that do not contain clusters' : 'Delete Project'" />
-                    </v-tooltip>
+                      color="action-button"
+                      :disabled="isDeleteButtonDisabled"
+                      icon="mdi-delete"
+                      variant="text"
+                      size="small"
+                      @click.stop="showDialog"
+                      v-tooltip:top="isDeleteButtonDisabled ? 'You can only delete projects that do not contain clusters' : 'Delete Project'"
+                    />
                   </template>
                 </g-list-item>
               </g-list>
@@ -400,14 +392,10 @@ SPDX-License-Identifier: Apache-2.0
                       :key="resourceQuota.key"
                     >
                       <td class="text-left">
-                        <span>
+                        <span
+                          v-tooltip:top="resourceQuota.resourceName"
+                        >
                           {{ resourceQuota.caption }}
-                          <v-tooltip
-                            activator="parent"
-                            location="top"
-                          >
-                            {{ resourceQuota.resourceName }}
-                          </v-tooltip>
                         </span>
                       </td>
                       <td class="text-center">
@@ -416,13 +404,8 @@ SPDX-License-Identifier: Apache-2.0
                             :model-value="resourceQuota.percentage"
                             :color="resourceQuota.progressColor"
                             :height="8"
+                            v-tooltip:top="`${resourceQuota.percentage}%`"
                           />
-                          <v-tooltip
-                            activator="parent"
-                            location="top"
-                          >
-                            {{ resourceQuota.percentage }}%
-                          </v-tooltip>
                         </div>
                       </td>
                       <td class="text-center">

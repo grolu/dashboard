@@ -87,20 +87,15 @@ SPDX-License-Identifier: Apache-2.0
           </v-list-item>
         </template>
         <template #append>
-          <v-tooltip location="top">
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                :disabled="!valid"
-                icon="mdi-check"
-                variant="text"
-                density="comfortable"
-                color="success"
-                @click="onSave"
-              />
-            </template>
-            Save
-          </v-tooltip>
+          <v-btn
+            :disabled="!valid"
+            icon="mdi-check"
+            variant="text"
+            density="comfortable"
+            color="success"
+            @click="onSave"
+            v-tooltip:top="'Save'"
+          />
         </template>
         <template #message="{ message }">
           <g-error-message

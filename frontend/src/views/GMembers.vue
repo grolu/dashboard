@@ -36,45 +36,24 @@ SPDX-License-Identifier: Apache-2.0
             density="compact"
             @keyup.esc="userFilter = ''"
           />
-          <v-tooltip
+          <v-btn
             v-if="allEmails"
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-email-outline"
-                :href="`mailto:${allEmails}`"
-              />
-            </template>
-            <span>Mail to all Members</span>
-          </v-tooltip>
-          <v-tooltip
+            icon="mdi-email-outline"
+            :href="`mailto:${allEmails}`"
+            v-tooltip:top="'Mail to all Members'"
+          />
+          <v-btn
             v-if="canManageMembers"
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-plus"
-                @click.stop="openUserAddDialog"
-              />
-            </template>
-            <span>Add Member</span>
-          </v-tooltip>
-          <v-tooltip
+            icon="mdi-plus"
+            @click.stop="openUserAddDialog"
+            v-tooltip:top="'Add Member'"
+          />
+          <v-btn
             v-if="canManageMembers"
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-help-circle-outline"
-                @click.stop="openUserHelpDialog"
-              />
-            </template>
-            <span>Help</span>
-          </v-tooltip>
+            icon="mdi-help-circle-outline"
+            @click.stop="openUserHelpDialog"
+            v-tooltip:top="'Help'"
+          />
           <g-table-column-selection
             :headers="userAccountTableHeaders"
             @set-selected-header="setSelectedHeaderUserAccount"
@@ -150,29 +129,17 @@ SPDX-License-Identifier: Apache-2.0
             density="compact"
             @keyup.esc="serviceAccountFilter = ''"
           />
-          <v-tooltip
+          <v-btn
             v-if="canManageServiceAccountMembers && canCreateServiceAccounts"
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-plus"
-                @click.stop="openServiceAccountAddDialog"
-              />
-            </template>
-            <span>Create Service Account</span>
-          </v-tooltip>
-          <v-tooltip location="top">
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-help-circle-outline"
-                @click.stop="openServiceAccountHelpDialog"
-              />
-            </template>
-            <span>Help</span>
-          </v-tooltip>
+            icon="mdi-plus"
+            @click.stop="openServiceAccountAddDialog"
+            v-tooltip:top="'Create Service Account'"
+          />
+          <v-btn
+            icon="mdi-help-circle-outline"
+            @click.stop="openServiceAccountHelpDialog"
+            v-tooltip:top="'Help'"
+          />
           <g-table-column-selection
             :headers="serviceAccountTableHeaders"
             @set-selected-header="setSelectedHeaderServiceAccount"

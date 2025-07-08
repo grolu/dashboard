@@ -13,15 +13,9 @@ SPDX-License-Identifier: Apache-2.0
     color="action-button"
     variant="tonal"
     :class="{ 'ml-3': index > 0 }"
+    v-tooltip="{ text: tooltip, location: 'top', disabled: !tooltip }"
   >
     {{ displayName }}
-    <v-tooltip
-      activator="parent"
-      location="top"
-      :disabled="!tooltip"
-    >
-      {{ tooltip }}
-    </v-tooltip>
   </v-chip>
 </template>
 

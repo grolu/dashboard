@@ -11,27 +11,21 @@ SPDX-License-Identifier: Apache-2.0
     placement="bottom"
   >
     <template #activator="{ props: popoverProps }">
-      <v-tooltip
-        location="top"
-        :text="tooltipText"
+      <v-chip
+        v-bind="popoverProps"
+        v-tooltip:top="tooltipText"
+        size="small"
+        class="cursor-pointer ma-1"
+        :variant="!shootSupportedPatchAvailable ? 'tonal' : 'flat'"
+        :color="chipColor"
       >
-        <template #activator="{ props: tooltipProps }">
-          <v-chip
-            v-bind="mergeProps(popoverProps, tooltipProps)"
+          <v-icon
+            v-if="shootSupportedPatchAvailable || shootSupportedUpgradeAvailable"
+            icon="mdi-menu-up"
             size="small"
-            class="cursor-pointer ma-1"
-            :variant="!shootSupportedPatchAvailable ? 'tonal' : 'flat'"
-            :color="chipColor"
-          >
-            <v-icon
-              v-if="shootSupportedPatchAvailable || shootSupportedUpgradeAvailable"
-              icon="mdi-menu-up"
-              size="small"
-            />
-            {{ shootK8sVersion }}
-          </v-chip>
-        </template>
-      </v-tooltip>
+          />
+          {{ shootK8sVersion }}
+      </v-chip>
     </template>
     <g-list style="min-width: 300px">
       <g-list-item>
