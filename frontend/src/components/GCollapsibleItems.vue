@@ -22,14 +22,9 @@ SPDX-License-Identifier: Apache-2.0
             label
             class="pointer"
             @click="expanded = true"
+            v-tooltip:top="'Expand items'"
           >
             {{ itemCount }}
-            <v-tooltip
-              location="top"
-              activator="parent"
-            >
-              Expand items
-            </v-tooltip>
           </v-chip>
         </v-hover>
       </template>

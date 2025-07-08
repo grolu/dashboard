@@ -10,14 +10,9 @@ SPDX-License-Identifier: Apache-2.0
     class="ma-1"
     variant="tonal"
     color="disabled"
+    v-tooltip:top="'This cluster does not have worker groups'"
   >
     workerless
-    <v-tooltip
-      activator="parent"
-      location="top"
-    >
-      This cluster does not have worker groups
-    </v-tooltip>
   </v-chip>
 </template>
 

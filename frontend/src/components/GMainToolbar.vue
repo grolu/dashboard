@@ -24,19 +24,9 @@ SPDX-License-Identifier: Apache-2.0
       color="primary"
       icon
       class="mr-5"
+      v-tooltip="{ text: 'Info', location: 'left', disabled: help }"
     >
-      <v-tooltip
-        :disabled="help"
-        location="left"
-      >
-        <template #activator="{ props }">
-          <v-icon
-            v-bind="props"
-            icon="mdi-help-circle-outline"
-          />
-        </template>
-        Info
-      </v-tooltip>
+      <v-icon icon="mdi-help-circle-outline" />
 
       <v-menu
         v-model="help"
@@ -115,56 +105,32 @@ SPDX-License-Identifier: Apache-2.0
       icon
       class="mr-3"
     >
-      <v-tooltip
-        :disabled="menu"
-        location="left"
+      <v-badge
+        v-if="isAdmin"
+        color="primary"
+        location="bottom right"
+        icon="mdi-account-supervisor"
       >
-        <template #activator="{ props }">
-          <v-badge
-            v-if="isAdmin"
-            color="primary"
-            location="bottom right"
-            icon="mdi-account-supervisor"
-          >
-            <v-avatar
-              v-bind="props"
-              size="40"
-              class="cursor-pointer"
-            >
-              <v-img
-                :src="avatarUrl"
-                :alt="`avatar of ${avatarTitle}`"
-              />
-            </v-avatar>
-          </v-badge>
-          <v-avatar
-            v-else
-            v-bind="props"
-            size="40"
-            class="cursor-pointer"
-          >
-            <v-img
-              :src="avatarUrl"
-              :alt="`avatar of ${avatarTitle}`"
-            />
-          </v-avatar>
-        </template>
-        <span v-if="isAdmin">
-          {{ avatarTitle }}
-          <v-chip
-            size="small"
-            color="primary"
-            variant="elevated"
-          >
-            <v-icon
-              start
-              icon="mdi-account-supervisor"
-            />
-            <span class="operator">Operator</span>
-          </v-chip>
-        </span>
-        <span v-else>{{ avatarTitle }}</span>
-      </v-tooltip>
+        <v-avatar
+          v-tooltip="{ text: isAdmin ? `${avatarTitle} Operator` : avatarTitle, location: 'left', disabled: menu }"
+          size="40"
+          class="cursor-pointer"
+          :src="avatarUrl"
+          :alt="`avatar of ${avatarTitle}`"
+          tag="div"
+        >
+          <v-img :src="avatarUrl" :alt="`avatar of ${avatarTitle}`" />
+        </v-avatar>
+      </v-badge>
+      <v-avatar
+        v-else
+        v-tooltip="{ text: avatarTitle, location: 'left', disabled: menu }"
+        size="40"
+        class="cursor-pointer"
+      >
+        <v-img :src="avatarUrl" :alt="`avatar of ${avatarTitle}`" />
+      </v-avatar>
+    </v-btn>
 
       <v-menu
         v-model="menu"
@@ -200,45 +166,30 @@ SPDX-License-Identifier: Apache-2.0
               class="mt-3"
               @click.stop
             >
-              <v-tooltip location="top">
-                <template #activator="{ props }">
-                  <v-btn
-                    value="light"
-                    v-bind="props"
-                    variant="tonal"
-                    min-width="36"
-                  >
-                    <v-icon icon="mdi-white-balance-sunny" />
-                  </v-btn>
-                </template>
-                <span>Light Mode</span>
-              </v-tooltip>
-              <v-tooltip location="top">
-                <template #activator="{ props }">
-                  <v-btn
-                    value="dark"
-                    v-bind="props"
-                    variant="tonal"
-                    min-width="36"
-                  >
-                    <v-icon icon="mdi-weather-night" />
-                  </v-btn>
-                </template>
-                <span>Dark Mode</span>
-              </v-tooltip>
-              <v-tooltip location="top">
-                <template #activator="{ props }">
-                  <v-btn
-                    value="auto"
-                    v-bind="props"
-                    variant="tonal"
-                    min-width="36"
-                  >
-                    <v-icon icon="mdi-brightness-auto" />
-                  </v-btn>
-                </template>
-                <span>Automatically choose theme based on your system settings</span>
-              </v-tooltip>
+              <v-btn
+                value="light"
+                variant="tonal"
+                min-width="36"
+                v-tooltip:top="'Light Mode'"
+              >
+                <v-icon icon="mdi-white-balance-sunny" />
+              </v-btn>
+              <v-btn
+                value="dark"
+                variant="tonal"
+                min-width="36"
+                v-tooltip:top="'Dark Mode'"
+              >
+                <v-icon icon="mdi-weather-night" />
+              </v-btn>
+              <v-btn
+                value="auto"
+                variant="tonal"
+                min-width="36"
+                v-tooltip:top="'Automatically choose theme based on your system settings'"
+              >
+                <v-icon icon="mdi-brightness-auto" />
+              </v-btn>
             </v-btn-toggle>
           </div>
           <v-divider />
